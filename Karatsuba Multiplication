@@ -5,8 +5,8 @@ int product (int x, int y);
 
 int main(){
     
-    int n1 = 123456 ;
-    int n2 = 567 ;
+    int n1 = 12345678 ;
+    int n2 = 56 ;
     
     cout << product(n1, n2) << endl;
     
@@ -28,20 +28,34 @@ int product (int x, int y){
     int backofy = y - frontofy * 100;
     int productofxy;
     
-    if (numbofdigit(frontofx) <= 2 && numbofdigit(frontofy) <= 2) {
+    if (numbofdigit(frontofx) <= 2 && numbofdigit(frontofy) <= 2 ) {
         int step1 = frontofx * frontofy;
         int step2 = backofx * backofy;
         int step3 = (frontofx + backofx) * (frontofy + backofy) - step1 - step2;
         
         productofxy = step1 * 10000 + step2 + step3 * 100 ;
+        cout << "pt1 used: " << step1 << "-" << step2 << "-" << step3 << "-" << productofxy << endl;
             }
     
-    else {
-        int step1 = product (frontofx, frontofy);
-        int step2 = product (backofx, backofy);
-        int step3 = product ((frontofx + backofx) , (frontofy + backofy)) - step1 - step2;
+    else if (frontofx ==0 || frontofy ==0 ){
         
-         productofxy = step1 * 10000 + step2 + step3 * 100 ;
+        int step11 = 0;
+        int step21 = product (backofx, backofy);
+        int step31 = product ((frontofx + backofx) , (frontofy + backofy)) - step11 - step21;
+        
+        productofxy = step11 * 10000 + step21 + step31 * 100 ;
+
+        cout << "==0 used" << endl;
+    }
+    
+    else {
+        int step11 = product (frontofx, frontofy);
+        int step21 = product (backofx, backofy);
+        int step31 = product ((frontofx + backofx) , (frontofy + backofy)) - step11 - step21;
+        
+         productofxy = step11 * 10000 + step21 + step31 * 100 ;
+        
+        cout << "pt2 used: " << step11 << "-" << step21 << "-" << step31 << "-" << productofxy << endl;
 
     };
     
