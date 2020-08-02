@@ -1,0 +1,49 @@
+#include <iostream>
+using namespace std;
+int numbofdigit(int number);
+int product (int x, int y);
+
+int main(){
+    
+    int n1 = 123456 ;
+    int n2 = 567 ;
+    
+    cout << product(n1, n2) << endl;
+    
+    return 0;
+}
+
+int numbofdigit(int number){
+    if (number  == 0)
+        return 0;
+    return numbofdigit(int (number/10)) + 1;
+};
+
+int product (int x, int y){
+    
+    int frontofx = x/100;
+    int backofx = x - frontofx * 100;
+    
+    int frontofy = y/100;
+    int backofy = y - frontofy * 100;
+    int productofxy;
+    
+    if (numbofdigit(frontofx) <= 2 && numbofdigit(frontofy) <= 2) {
+        int step1 = frontofx * frontofy;
+        int step2 = backofx * backofy;
+        int step3 = (frontofx + backofx) * (frontofy + backofy) - step1 - step2;
+        
+        productofxy = step1 * 10000 + step2 + step3 * 100 ;
+            }
+    
+    else {
+        int step1 = product (frontofx, frontofy);
+        int step2 = product (backofx, backofy);
+        int step3 = product ((frontofx + backofx) , (frontofy + backofy)) - step1 - step2;
+        
+         productofxy = step1 * 10000 + step2 + step3 * 100 ;
+
+    };
+    
+    return productofxy;
+};
