@@ -1,0 +1,41 @@
+class Solution {
+public:
+    vector<int> sortedSquares(vector<int>& A) {
+        
+        int n=0;
+        int p=0;
+        int z=0;
+        vector<int> vect(A.size(), 0);         
+        
+        for (int i=0; i< A.size(); i++ ){
+            if (A[i] < 0)
+                n++;
+            A[i] = A [i] *A[i];
+        }
+        
+        p = n;
+        
+        while (n>= 0 && p <= A.size() && z < A.size()){
+            if (n> 0 && p < A.size() && A[n-1] < A[p]){
+                vect[z] = A[n-1];
+                n--;
+            }
+            else if (n> 0 && p < A.size() && A[n-1] >= A[p]) {
+                vect[z] = A[p];
+                p++;
+            }
+            else if (n==0){
+                vect[z] = A[p];
+                p++;
+            }
+            else if (p == A.size()){
+                vect[z] = A[n-1];
+                n--;
+            }
+            z++;
+        }
+        
+        return vect;
+        
+    }
+};
