@@ -1,0 +1,77 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+unsigned long long numbofdigit(unsigned long long number);
+unsigned long long product (unsigned long long x, unsigned long long y);
+
+int main(){
+    
+    unsigned long long n1 = 1234567891 ;
+    unsigned long long n2 = 123456789 ;
+    
+    cout << product(n1, n2) << endl;
+    
+    return 0;
+}
+
+unsigned long long numbofdigit(unsigned long long number){
+    if (number  == 0)
+        return 0;
+    return numbofdigit(number/10) + 1;
+};
+
+unsigned long long product (unsigned long long x, unsigned long long y){
+    
+    if (numbofdigit(x) <= 2 && numbofdigit(y) <= 2) {
+        cout << "xy called: " << x*y << endl;
+        return x*y; }
+        
+    else if (numbofdigit(x) > 2 && numbofdigit(y) <= 2) {
+        unsigned long long frontofx = x/ (pow(10, ((numbofdigit(x) - numbofdigit(x)%2 )/2)));
+        unsigned long long backofx = x - frontofx * (pow(10, ((numbofdigit(x) - numbofdigit(x)%2 )/2)));
+        
+        unsigned long long step11 = product (frontofx, 0);
+        unsigned long long step21 = product (backofx, y);
+        unsigned long long step31 = product ((frontofx + backofx) , y) - step11 - step21;
+        
+        unsigned long long productofxy = step11 * pow(10, (numbofdigit(x) - numbofdigit(x)%2)) + step21 + step31 * pow(10, ((numbofdigit(x) - numbofdigit(x)%2 )/2)) ;
+        
+        cout << "p1 called:" << frontofx << "-" << step21 << "-" << step31 << endl;
+        
+        return productofxy;
+    }
+    
+    else if (numbofdigit(x) <= 2 && numbofdigit(y) > 2) {
+        unsigned long long frontofy = y/ (pow(10, ((numbofdigit(y) - numbofdigit(y)%2 )/2)));
+        unsigned long long backofy = y - frontofy * (pow(10, ((numbofdigit(y) - numbofdigit(y)%2 )/2)));
+        
+        unsigned long long step11 = product (0, frontofy);
+        unsigned long long step21 = product (x, backofy);
+        unsigned long long step31 = product (x , (frontofy + backofy)) - step11 - step21;
+        
+        unsigned long long productofxy = step11 * pow(10, (numbofdigit(x) - numbofdigit(x)%2)) + step21 + step31 * pow(10, ((numbofdigit(x) - numbofdigit(x)%2 )/2)) ;
+        
+        cout << "p2 called:" << step11 << "-" << step21 << "-" << step31 << endl;
+        
+        return productofxy;
+    }
+    
+    else {
+        unsigned long long frontofx = x/ (pow(10, ((numbofdigit(x) - numbofdigit(x)%2 )/2)));
+        unsigned long long backofx = x - frontofx * (pow(10, ((numbofdigit(x) - numbofdigit(x)%2 )/2)));
+        
+        unsigned long long frontofy = y/ (pow(10, ((numbofdigit(y) - numbofdigit(y)%2 )/2)));
+        unsigned long long backofy = y - frontofy * (pow(10, ((numbofdigit(y) - numbofdigit(y)%2 )/2)));
+        
+        unsigned long long step11 = product (frontofx, frontofy);
+        unsigned long long step21 = product (backofx, backofy);
+        unsigned long long step31 = product ((frontofx + backofx) , (frontofy + backofy)) - step11 - step21;
+        
+        unsigned long long productofxy = step11 * pow(10, (numbofdigit(x) - numbofdigit(x)%2)) + step21 + step31 * pow(10, ((numbofdigit(x) - numbofdigit(x)%2 )/2)) ;
+        
+        cout << "p3 called:" << frontofx << "-" << frontofy << "-" << step31 << endl;
+
+        return productofxy;
+    }
+};
