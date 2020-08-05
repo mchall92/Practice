@@ -1,0 +1,82 @@
+#include <iostream>
+#include <stdlib.h>
+#include <time.h>
+#include <array>
+using namespace std;
+
+void mergesort(int *arr, int, int);
+void merge(int *arr, int, int, int);
+
+int main(){
+    
+    const int Arraysize = 50;
+    int a[Arraysize];
+    
+    srand (time(NULL));
+    
+    for (int i = 0; i < Arraysize ; i++){
+        a[i] = int (rand()%1000);
+        cout << a[i] << "-" ;
+    }
+    cout << endl;
+        
+    mergesort(a, 0, Arraysize-1);
+    
+    for (int i = 0; i < Arraysize ; i++)
+        cout << a[i] << "-" ;
+    cout << endl;
+
+    return 0;
+};
+
+void mergesort( int *arr, int f, int b) {
+    
+    if (f < b){
+        int m = (f + b)/2;
+        
+        //sort first and second halves //
+        mergesort(arr, f, m);
+        mergesort(arr, m+1, b);
+        
+        //merge //
+        merge(arr, f, m, b);
+    }
+};
+
+void merge(int *arr, int f, int m, int b){
+    int i, j, k;
+    int n1 = m - f +1;
+    int n2 = b - (m+1) +1;
+    
+    int L[n1], R[n2];
+    
+    for(int i=0; i < n1; i++)
+        L[i] = arr[f+i];
+        
+    for(int j=0; j< n2; j++)
+        R[j] = arr[m+1+j];
+    
+    i =0;
+    j =0;
+    k =f;
+    
+    while(k <= b){
+        if (L[i] < R[j] && i <n1 && j <n2){
+            arr[k] = L[i];
+            i++;
+        }
+        else if (L[i] >= R[j] && i <n1 && j <n2){
+            arr[k] = R[j];
+            j++;
+        }
+        else if (i == n1){
+            arr[k] = R[j];
+            j++;
+        }
+        else if (j == n2){
+            arr[k] = L[i];
+            i++;
+        }
+        k++;
+    };
+};
