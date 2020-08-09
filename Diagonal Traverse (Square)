@@ -1,0 +1,47 @@
+class Solution {
+public:
+    vector<int> findDiagonalOrder(vector<vector<int>>& matrix) {
+        vector<int> vect;
+        
+        int counter1= 0;
+        
+        int counter2 = 0;
+        
+        if (matrix.size() == 0)
+            return vect;
+        
+        for (int i = 0; i <= 2*(matrix.size()-1); i++){
+            if (i%2 == 0) {
+                if (i < matrix.size()-1) {
+                    for (int j = i; j >= 0; j--)
+                        vect.push_back(matrix[i][j-i]);
+                }
+                else {
+                    while (counter1 < ( (matrix.size()-1)*2-i+1 ) ) {
+                        vect.push_back(matrix[matrix.size()-1-counter1][i-(matrix.size()-1)+counter1]);
+                        counter1++;
+                    }
+                    counter1 =0;
+                };
+            };    //  end of if (i%2 == 0) //
+            
+                if (i%2 == 1) {
+                    if (i < matrix.size()-1) {
+                        for (int l = 0; l <= i; l++)
+                            vect.push_back(matrix[l][i-l]);
+                    }
+                    else {
+                        while (counter2 < ( (matrix.size()-1)*2-i+1 ) ) {
+                            vect.push_back(matrix[i - (matrix.size()-1) + counter2 ][matrix.size()-1-counter2]);
+                            counter2++;
+                        }
+                        counter2 = 0;
+                    }
+                    
+                };   // if (i%2 == 1)  //
+            }  //end of i for loop //
+                            
+        return vect;
+    }
+            
+};
