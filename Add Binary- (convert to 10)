@@ -1,0 +1,36 @@
+class Solution {
+public:
+    string addBinary(string a, string b) {
+        
+        string result;
+        
+        int A = 0;
+        int B = 0;
+        
+        for (int i = a.size() -1; i >= 0; i--) {
+            if (a.compare(i, 1, "1") == 0)
+                A = A + pow(2, (a.size()-1)-i);
+        }
+        
+        for (int i = b.size() -1; i >= 0; i--) {
+            if (b.compare(i, 1, "1") == 0)
+                B = B + pow(2, (b.size()-1)-i);
+        }        
+        
+        int ans = A+B;
+        
+        while (ans >= 0) {
+            if (ans%2==0)
+                result.insert(0, "0");
+            else
+                result.insert(0, "1");
+            
+            ans = (ans-ans%2) / 2;
+            
+            if (ans == 0)
+                break;
+        };
+                        
+        return result;
+    }
+};
